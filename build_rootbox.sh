@@ -55,12 +55,9 @@ echo -e ""
 echo -e "${bldblu}Starting to build RootBox ${txtrst}"
 
 # start compilation
-echo -e "brunch "rootbox_$DEVICE-userdebug" -j"$THREADS""
 brunch "rootbox_$DEVICE-userdebug" -j"$THREADS";
 echo -e ""
 
 # finished? get elapsed time
 res2=$(date +%s.%N)
 echo "${bldgrn}Total time elapsed: ${txtrst}${grn}$(echo "($res2 - $res1) / 60"|bc ) minutes ($(echo "$res2 - $res1"|bc ) seconds) ${txtrst}"
-
-# finished? get elapsed time
