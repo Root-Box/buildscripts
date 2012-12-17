@@ -116,44 +116,6 @@ else
     scp "$rdir"/out/target/product/i9100/$PACKAGEi9100p.zip Bajee@upload.goo.im:~/public_html/RootBox_i9100p_jb
 fi
 
-
-
-# Build RootBox GT-I9100G
-make clobber;
-. build/envsetup.sh;
-brunch rootbox_i9100g-userdebug -j12;
-
-PACKAGEi9100g=`sed -n -e'/ro.rootbox.version/s/^.*=//' -e's/rootbox_//p' $OUT/system/build.prop`
-
-# Move the changelog into zip  & upload zip to Goo.im
-if [ "$RELEASE" == "nightly" ]
-then
-    find "$rdir"/out/target/product -name *RootBox-JB-*${VERSION}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$rdir"/out/target/product/i9100g/$PACKAGEi9100g.zip Bajee@upload.goo.im:~/public_html/Nightlies/i9100g
-else
-    find "$rdir"/out/target/product -name *RootBox-JB-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$rdir"/out/target/product/i9100g/$PACKAGEi9100g.zip Bajee@upload.goo.im:~/public_html/RootBox_i9100g_jb
-fi
-
-
-
-# Build RootBox GT-I9300
-make clobber;
-. build/envsetup.sh;
-brunch rootbox_i9300-userdebug -j12;
-
-PACKAGEi9300=`sed -n -e'/ro.rootbox.version/s/^.*=//' -e's/rootbox_//p' $OUT/system/build.prop`
-
-# Move the changelog into zip  & upload zip to Goo.im
-if [ "$RELEASE" == "nightly" ]
-then
-    find "$rdir"/out/target/product -name *RootBox-JB-*${VERSION}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$rdir"/out/target/product/i9300/$PACKAGEi9300.zip Bajee@upload.goo.im:~/public_html/Nightlies/i9300
-else
-    find "$rdir"/out/target/product -name *RootBox-JB-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$rdir"/out/target/product/i9300/$PACKAGEi9300.zip Bajee@upload.goo.im:~/public_html/RootBox_i9300_jb
-fi
-
 # Remove Changelogs
 if [ "$RELEASE" == "nightly" ]
 then
