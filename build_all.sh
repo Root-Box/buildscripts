@@ -11,7 +11,7 @@ RELEASE="$1"
 # Build RootBox SGH-I747
 make clobber;
 . build/envsetup.sh;
-brunch rootbox_d2att-userdebug -j12;
+brunch rootbox_d2att-userdebug;
 
 # Generate Changelog
 
@@ -85,7 +85,7 @@ fi
 # Build RootBox GT-I9100
 make clobber;
 . build/envsetup.sh;
-brunch rootbox_i9100-userdebug -j12;
+brunch rootbox_i9100-userdebug;
 
 PACKAGEi9100=`sed -n -e'/ro.rootbox.version/s/^.*=//' -e's/rootbox_//p' $OUT/system/build.prop`
 
@@ -106,7 +106,7 @@ fi
 # Build RootBox GT-I9100P
 make clobber;
 . build/envsetup.sh;
-brunch rootbox_i9100p-userdebug -j12;
+brunch rootbox_i9100p-userdebug;
 
 PACKAGEi9100p=`sed -n -e'/ro.rootbox.version/s/^.*=//' -e's/rootbox_//p' $OUT/system/build.prop`
 
