@@ -71,9 +71,11 @@ if [ "$RELEASE" == "nightly" ]
 then
     find "$rdir"/out/target/product -name *RootBox-JB-*${VERSION}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$rdir"/out/target/product/d2att/$PACKAGEi747.zip Bajee@upload.goo.im:~/public_html/Nightlies/d2att
+    scp "$rdir"/out/target/product/d2att/$PACKAGEi747.zip bajee11@exynos.co:~/d2att_RB_NIGHTLIES
 else
     find "$rdir"/out/target/product -name *RootBox-JB-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$rdir"/out/target/product/d2att/$PACKAGEi747.zip Bajee@upload.goo.im:~/public_html/RootBox_d2att_jb
+    scp "$rdir"/out/target/product/d2att/$PACKAGEi747.zip bajee11@exynos.co:~/d2att_RB_RELEASE
     scp "$rdir"/changelog_"$RB_BUILD".txt Bajee@upload.goo.im:~/public_html/RootBox_Changelogs
 fi
 
@@ -92,9 +94,11 @@ if [ "$RELEASE" == "nightly" ]
 then
     find "$rdir"/out/target/product -name *RootBox-JB-*${VERSION}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$rdir"/out/target/product/i9100/$PACKAGEi9100.zip Bajee@upload.goo.im:~/public_html/Nightlies/i9100
+    scp "$rdir"/out/target/product/i9100/$PACKAGEi9100.zip bajee11@exynos.co:~/i9100_RB_NIGHTLIES
 else
     find "$rdir"/out/target/product -name *RootBox-JB-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
    scp "$rdir"/out/target/product/i9100/$PACKAGEi9100.zip Bajee@upload.goo.im:~/public_html/RootBox_i9100_jb
+   scp "$rdir"/out/target/product/i9100/$PACKAGEi9100.zip bajee11@exynos.co:~/i9100_RB_RELEASE
 fi
 
 
@@ -111,9 +115,11 @@ if [ "$RELEASE" == "nightly" ]
 then
     find "$rdir"/out/target/product -name *RootBox-JB-*${VERSION}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$rdir"/out/target/product/i9100/$PACKAGEi9100p.zip Bajee@upload.goo.im:~/public_html/Nightlies/i9100p
+    scp "$rdir"/out/target/product/i9100/$PACKAGEi9100p.zip bajee11@exynos.co:~/i9100p_RB_NIGHTLIES
 else
     find "$rdir"/out/target/product -name *RootBox-JB-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$rdir"/out/target/product/i9100/$PACKAGEi9100p.zip Bajee@upload.goo.im:~/public_html/RootBox_i9100p_jb
+    scp "$rdir"/out/target/product/i9100/$PACKAGEi9100p.zip bajee11@exynos.co:~/i9100p_RB_RELEASE
 fi
 
 # Remove Changelogs
