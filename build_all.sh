@@ -63,19 +63,19 @@ else
     cp changelog.txt changelog_"$RB_BUILD".txt
 fi
 
-PACKAGEi747=`sed -n -e'/ro.rootbox.version/s/^.*=//' -e's/rootbox_//p' $OUT/system/build.prop`
+PACKAGEi747="RootBox-JB-d2att"
 
 # Move the changelog into d2att zip  & upload zip/changelog to Goo.im
 
 if [ "$RELEASE" == "nightly" ]
 then
     find "$rdir"/out/target/product -name *RootBox-JB-*${VERSION}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$rdir"/out/target/product/d2att/$PACKAGEi747.zip Bajee@upload.goo.im:~/public_html/Nightlies/d2att
-    scp "$rdir"/out/target/product/d2att/$PACKAGEi747.zip bajee11@exynos.co:~/d2att_RB_NIGHTLIES
+    scp "$rdir"/out/target/product/d2att/"$PACKAGEi747"-"$VERSION".zip Bajee@upload.goo.im:~/public_html/Nightlies/d2att
+    scp "$rdir"/out/target/product/d2att/"$PACKAGEi747"-"$VERSION".zip bajee11@exynos.co:~/d2att_RB_NIGHTLIES
 else
     find "$rdir"/out/target/product -name *RootBox-JB-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$rdir"/out/target/product/d2att/$PACKAGEi747.zip Bajee@upload.goo.im:~/public_html/RootBox_d2att_jb
-    scp "$rdir"/out/target/product/d2att/$PACKAGEi747.zip bajee11@exynos.co:~/d2att_RB_RELEASE
+    scp "$rdir"/out/target/product/d2att/"$PACKAGEi747"-"$RB_BUILD".zip Bajee@upload.goo.im:~/public_html/RootBox_d2att_jb
+    scp "$rdir"/out/target/product/d2att/"$PACKAGEi747"-"$RB_BUILD".zip bajee11@exynos.co:~/d2att_RB_RELEASE
     scp "$rdir"/changelog_"$RB_BUILD".txt Bajee@upload.goo.im:~/public_html/RootBox_Changelogs
 fi
 
@@ -87,18 +87,18 @@ make clobber;
 . build/envsetup.sh;
 brunch rootbox_i9100-userdebug;
 
-PACKAGEi9100=`sed -n -e'/ro.rootbox.version/s/^.*=//' -e's/rootbox_//p' $OUT/system/build.prop`
+PACKAGEi9100="RootBox-JB-i9100"
 
 # Move the changelog into zip  & upload zip to Goo.im
 if [ "$RELEASE" == "nightly" ]
 then
     find "$rdir"/out/target/product -name *RootBox-JB-*${VERSION}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$rdir"/out/target/product/i9100/$PACKAGEi9100.zip Bajee@upload.goo.im:~/public_html/Nightlies/i9100
-    scp "$rdir"/out/target/product/i9100/$PACKAGEi9100.zip bajee11@exynos.co:~/i9100_RB_NIGHTLIES
+    scp "$rdir"/out/target/product/i9100/"$PACKAGEi9100"-"$VERSION".zip Bajee@upload.goo.im:~/public_html/Nightlies/i9100
+    scp "$rdir"/out/target/product/i9100/"$PACKAGEi9100"-"$VERSION".zip bajee11@exynos.co:~/i9100_RB_NIGHTLIES
 else
     find "$rdir"/out/target/product -name *RootBox-JB-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-   scp "$rdir"/out/target/product/i9100/$PACKAGEi9100.zip Bajee@upload.goo.im:~/public_html/RootBox_i9100_jb
-   scp "$rdir"/out/target/product/i9100/$PACKAGEi9100.zip bajee11@exynos.co:~/i9100_RB_RELEASE
+   scp "$rdir"/out/target/product/i9100/"$PACKAGEi9100"-"$RB_BUILD".zip Bajee@upload.goo.im:~/public_html/RootBox_i9100_jb
+   scp "$rdir"/out/target/product/i9100/"$PACKAGEi9100"-"$RB_BUILD".zip bajee11@exynos.co:~/i9100_RB_RELEASE
 fi
 
 
@@ -108,18 +108,18 @@ make clobber;
 . build/envsetup.sh;
 brunch rootbox_i9100p-userdebug;
 
-PACKAGEi9100p=`sed -n -e'/ro.rootbox.version/s/^.*=//' -e's/rootbox_//p' $OUT/system/build.prop`
+PACKAGEi9100p="RootBox-JB-i9100p"
 
 # Move the changelog into zip  & upload zip to Goo.im
 if [ "$RELEASE" == "nightly" ]
 then
     find "$rdir"/out/target/product -name *RootBox-JB-*${VERSION}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$rdir"/out/target/product/i9100/$PACKAGEi9100p.zip Bajee@upload.goo.im:~/public_html/Nightlies/i9100p
-    scp "$rdir"/out/target/product/i9100/$PACKAGEi9100p.zip bajee11@exynos.co:~/i9100p_RB_NIGHTLIES
+    scp "$rdir"/out/target/product/i9100/"$PACKAGEi9100p"-"$VERSION".zip Bajee@upload.goo.im:~/public_html/Nightlies/i9100p
+    scp "$rdir"/out/target/product/i9100/"$PACKAGEi9100p"-"$VERSION".zip bajee11@exynos.co:~/i9100p_RB_NIGHTLIES
 else
     find "$rdir"/out/target/product -name *RootBox-JB-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$rdir"/out/target/product/i9100/$PACKAGEi9100p.zip Bajee@upload.goo.im:~/public_html/RootBox_i9100p_jb
-    scp "$rdir"/out/target/product/i9100/$PACKAGEi9100p.zip bajee11@exynos.co:~/i9100p_RB_RELEASE
+    scp "$rdir"/out/target/product/i9100/"$PACKAGEi9100p"-"$RB_BUILD".zip Bajee@upload.goo.im:~/public_html/RootBox_i9100p_jb
+    scp "$rdir"/out/target/product/i9100/"$PACKAGEi9100p"-"$RB_BUILD".zip bajee11@exynos.co:~/i9100p_RB_RELEASE
 fi
 
 # Remove Changelogs
