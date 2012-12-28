@@ -4,7 +4,6 @@ ydate=$(date -d '1 day ago' +"%m/%d/%Y")
 sdate="$2"
 cdate=`date +"%m_%d_%Y"`
 rdir=`pwd`
-VERSION=`date +%Y%m%d`
 RELEASE="$1"
 
 
@@ -12,6 +11,11 @@ RELEASE="$1"
 make clobber;
 . build/envsetup.sh;
 brunch rootbox_d2att-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION1=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEd2att=$OUT/$VERSION1.zip
 
 # Generate Changelog
 
@@ -63,18 +67,16 @@ else
     cp changelog.txt changelog_"$RB_BUILD".txt
 fi
 
-PACKAGEi747="RootBox-JB-d2att"
-
 # Move the changelog into d2att zip  & upload zip/changelog to Goo.im
 
 if [ "$RELEASE" == "nightly" ]
 then
     find "$OUT" -name *RootBox-JB-*${VERSION}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$OUT"/"$PACKAGEi747"-"$VERSION".zip Bajee@upload.goo.im:~/public_html/Nightlies/d2att
-    scp "$OUT"/"$PACKAGEi747"-"$VERSION".zip bajee11@exynos.co:~/RB_d2att_NIGHTLIES
+    scp "$PACKAGEd2att" Bajee@upload.goo.im:~/public_html/Nightlies/d2att
+    scp "$PACKAGEd2att" bajee11@exynos.co:~/RB_d2att_NIGHTLIES
 else
     find "$rdir"/out/target/product -name *RootBox-JB-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$OUT"/"$PACKAGEi747"-"$RB_BUILD".zip Bajee@upload.goo.im:~/public_html/RootBox_d2att_jb
+    scp "$PACKAGEd2att" Bajee@upload.goo.im:~/public_html/RootBox_d2att_jb
     scp "$rdir"/changelog_"$RB_BUILD".txt Bajee@upload.goo.im:~/public_html/RootBox_Changelogs
 fi
 
@@ -84,17 +86,20 @@ make clobber;
 . build/envsetup.sh;
 brunch rootbox_i9100-userdebug;
 
-PACKAGEi9100="RootBox-JB-i9100"
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION2=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEi9100=$OUT/$VERSION2.zip
 
 # Move the changelog into zip  & upload zip to Goo.im
 if [ "$RELEASE" == "nightly" ]
 then
     find "$OUT" -name *RootBox-JB-*${VERSION}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$OUT"/"$PACKAGEi9100"-"$VERSION".zip Bajee@upload.goo.im:~/public_html/Nightlies/i9100
-    scp "$OUT"/"$PACKAGEi9100"-"$VERSION".zip bajee11@exynos.co:~/RB_i9100_NIGHTLIES
+    scp "$PACKAGEi9100" Bajee@upload.goo.im:~/public_html/Nightlies/i9100
+    scp "$PACKAGEi9100" bajee11@exynos.co:~/RB_i9100_NIGHTLIES
 else
-   find "$OUT" -name *RootBox-JB-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-   scp "$OUT"/"$PACKAGEi9100"-"$RB_BUILD".zip Bajee@upload.goo.im:~/public_html/RootBox_i9100_jb
+    find "$OUT" -name *RootBox-JB-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEi9100" Bajee@upload.goo.im:~/public_html/RootBox_i9100_jb
 fi
 
 
@@ -103,17 +108,20 @@ make clobber;
 . build/envsetup.sh;
 brunch rootbox_i9100p-userdebug;
 
-PACKAGEi9100p="RootBox-JB-i9100p"
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION3=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEi9100p=$OUT/$VERSION3.zip
 
 # Move the changelog into zip  & upload zip to Goo.im
 if [ "$RELEASE" == "nightly" ]
 then
     find "$OUT" -name *RootBox-JB-*${VERSION}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$OUT"/"$PACKAGEi9100p"-"$VERSION".zip Bajee@upload.goo.im:~/public_html/Nightlies/i9100p
-    scp "$OUT"/"$PACKAGEi9100p"-"$VERSION".zip bajee11@exynos.co:~/RB_i9100p_NIGHTLIES
+    scp "$PACKAGEi9100p" Bajee@upload.goo.im:~/public_html/Nightlies/i9100p
+    scp "$PACKAGEi9100p" bajee11@exynos.co:~/RB_i9100p_NIGHTLIES
 else
     find "$OUT" -name *RootBox-JB-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$OUT"/"$PACKAGEi9100p"-"$RB_BUILD".zip Bajee@upload.goo.im:~/public_html/RootBox_i9100p_jb
+    scp "$PACKAGEi9100p" Bajee@upload.goo.im:~/public_html/RootBox_i9100p_jb
 fi
 
 # Remove Changelogs
