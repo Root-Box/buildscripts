@@ -102,27 +102,47 @@ else
     scp "$PACKAGEi9100" Bajee@upload.goo.im:~/public_html/RootBox_i9100_jb
 fi
 
-
-# Build RootBox GT-I9100P
+# Build RootBox GT-I9300
 make clobber;
 . build/envsetup.sh;
-brunch rootbox_i9100p-userdebug;
+brunch rootbox_i9300-userdebug;
 
 # Get Package Name
 sed -i -e 's/rootbox_//' $OUT/system/build.prop
-VERSION3=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
-PACKAGEi9100p=$OUT/$VERSION3.zip
+VERSION4=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEi9300=$OUT/$VERSION4.zip
 
 # Move the changelog into zip  & upload zip to Goo.im
 if [ "$RELEASE" == "nightly" ]
 then
     find "$OUT" -name *RootBox-JB-*${VERSION}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$PACKAGEi9100p" Bajee@upload.goo.im:~/public_html/Nightlies/i9100p
-    scp "$PACKAGEi9100p" bajee11@exynos.co:~/RB_i9100p_NIGHTLIES
+    scp "$PACKAGEi9300" Bajee@upload.goo.im:~/public_html/Nightlies/i9300
+    scp "$PACKAGEi9300" bajee11@exynos.co:~/RB_i9300_NIGHTLIES
 else
     find "$OUT" -name *RootBox-JB-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$PACKAGEi9100p" Bajee@upload.goo.im:~/public_html/RootBox_i9100p_jb
+    scp "$PACKAGEi9300" Bajee@upload.goo.im:~/public_html/RootBox_i9300_jb
 fi
+
+# Build RootBox GT-I9100P
+#make clobber;
+#. build/envsetup.sh;
+#brunch rootbox_i9100p-userdebug;
+
+# Get Package Name
+#sed -i -e 's/rootbox_//' $OUT/system/build.prop
+#VERSION3=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+#PACKAGEi9100p=$OUT/$VERSION3.zip
+#
+# Move the changelog into zip  & upload zip to Goo.im
+#if [ "$RELEASE" == "nightly" ]
+#then
+#    find "$OUT" -name *RootBox-JB-*${VERSION}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+#    scp "$PACKAGEi9100p" Bajee@upload.goo.im:~/public_html/Nightlies/i9100p
+#    scp "$PACKAGEi9100p" bajee11@exynos.co:~/RB_i9100p_NIGHTLIES
+#else
+#    find "$OUT" -name *RootBox-JB-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+#    scp "$PACKAGEi9100p" Bajee@upload.goo.im:~/public_html/RootBox_i9100p_jb
+#fi
 
 # Remove Changelogs
 if [ "$RELEASE" == "nightly" ]
