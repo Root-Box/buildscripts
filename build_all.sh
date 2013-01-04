@@ -62,10 +62,14 @@ done
 # Make changelog copy
 cp changelog.txt Changelog_"$cdate".txt
 
-# Upload zip/changelog to Andro
-find "$OUT" -name *aokp_d2att_unofficial*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+# Upload changelog to Andro and Goo
 scp "$rdir"/Changelog_$cdate.txt bajee11@exynos.co:~/AOKP_Changelog
+scp "$rdir"/Changelog_$cdate.txt aokp_s2@upload.goo.im:~/public_html/Nightlies/Changelogs
+
+# Upload zip to Andro and Goo
+find "$OUT" -name *aokp_d2att_unofficial*.zip -exec zip -j {} "$rdir"/changelog.txt \;
 scp "$PACKAGEd2att" bajee11@exynos.co:~/AOKP_d2att_NIGHTLIES
+scp "$PACKAGEd2att" aokp_s2@upload.goo.im:~/public_html/Nightlies/d2att
 
 
 # Build AOKP GT-I9100
@@ -78,8 +82,24 @@ find "$OUT" -name *aokp_i9100_unofficial*.zip -exec zip -j {} "$rdir"/changelog.
 VERSION2=`sed -n -e'/ro.aokp.version/s/^.*=//p' $OUT/system/build.prop`
 PACKAGEi9100=$OUT/$VERSION2.zip
 
-# Upload package to Andro
+# Upload package to Andro and Goo
 scp "$PACKAGEi9100" bajee11@exynos.co:~/AOKP_i9100_NIGHTLIES
+scp "$PACKAGEi9100" aokp_s2@upload.goo.im:~/public_html/Nightlies/i9100
+
+# Build RootBox GT-I9100G
+make clobber;
+. build/envsetup.sh;
+brunch aokp_i9100g-userdebug;
+
+# Get Package Name
+find "$OUT" -name *aokp_i9100g_unofficial*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+VERSION3=`sed -n -e'/ro.aokp.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEi9100g=$OUT/$VERSION3.zip
+
+# Upload package to Andro
+scp "$PACKAGEi9100g" bajee11@exynos.co:~/AOKP_i9100g_NIGHTLIES
+scp "$PACKAGEi9100g" aokp_s2@upload.goo.im:~/public_html/Nightlies/i9100g
+
 
 # Build RootBox GT-I9300
 make clobber;
@@ -93,6 +113,7 @@ PACKAGEi9300=$OUT/$VERSION4.zip
 
 # Upload package to Andro
 scp "$PACKAGEi9300" bajee11@exynos.co:~/AOKP_i9300_NIGHTLIES
+scp "$PACKAGEi9300" aokp_s2@upload.goo.im:~/public_html/Nightlies/i9300
 
 # Remove Changelogs
 rm "$rdir"/changelog.txt
