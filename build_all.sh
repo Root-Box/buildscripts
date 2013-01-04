@@ -7,7 +7,6 @@ rdir=`pwd`
 
 
 # Build AOKP SGH-I747
-make clobber;
 . build/envsetup.sh;
 brunch aokp_d2att-userdebug;
 
@@ -73,7 +72,6 @@ scp "$PACKAGEd2att" aokp_s2@upload.goo.im:~/public_html/Nightlies/d2att
 
 
 # Build AOKP GT-I9100
-make clobber;
 . build/envsetup.sh;
 brunch aokp_i9100-userdebug;
 
@@ -87,7 +85,6 @@ scp "$PACKAGEi9100" bajee11@exynos.co:~/AOKP_i9100_NIGHTLIES
 scp "$PACKAGEi9100" aokp_s2@upload.goo.im:~/public_html/Nightlies/i9100
 
 # Build RootBox GT-I9100G
-make clobber;
 . build/envsetup.sh;
 brunch aokp_i9100g-userdebug;
 
@@ -102,7 +99,6 @@ scp "$PACKAGEi9100g" aokp_s2@upload.goo.im:~/public_html/Nightlies/i9100g
 
 
 # Build RootBox GT-I9300
-make clobber;
 . build/envsetup.sh;
 brunch aokp_i9300-userdebug;
 
