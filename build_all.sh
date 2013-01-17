@@ -9,7 +9,7 @@ RELEASE="$1"
 
 
 # Build RootBox SGH-I747
-make clobber;
+make installclean;
 . build/envsetup.sh;
 brunch rootbox_d2att-userdebug;
 
