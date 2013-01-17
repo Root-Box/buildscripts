@@ -7,6 +7,11 @@ DATE=`date +"%Y%m%d"`
 rdir=`pwd`
 RELEASE="$1"
 
+# Remove previous build info
+echo "Removing previous build.prop"
+rm out/target/product/d2att/system/build.prop;
+rm out/target/product/i9100/system/build.prop;
+rm out/target/product/i9300/system/build.prop;
 
 # Build RootBox SGH-I747
 make installclean;
