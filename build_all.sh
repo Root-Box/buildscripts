@@ -11,6 +11,7 @@ RELEASE="$1"
 echo "Removing previous build.prop"
 rm out/target/product/d2att/system/build.prop;
 rm out/target/product/i9100/system/build.prop;
+rm out/target/product/i9100g/system/build.prop;
 rm out/target/product/i9300/system/build.prop;
 
 # Build RootBox SGH-I747
@@ -79,7 +80,6 @@ if [ "$RELEASE" == "nightly" ]
 then
     find "$OUT" -name *RootBox-JB-d2att-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEd2att" Bajee@upload.goo.im:~/public_html/Nightlies/d2att
-    scp "$PACKAGEd2att" bajee11@exynos.co:~/RB_d2att_NIGHTLIES
 else
     find "$rdir"/out/target/product -name *RootBox-JB-d2att-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEd2att" Bajee@upload.goo.im:~/public_html/RootBox_d2att_jb
@@ -101,31 +101,28 @@ if [ "$RELEASE" == "nightly" ]
 then
     find "$OUT" -name *RootBox-JB-i9100-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEi9100" Bajee@upload.goo.im:~/public_html/Nightlies/i9100
-    scp "$PACKAGEi9100" bajee11@exynos.co:~/RB_i9100_NIGHTLIES
 else
     find "$OUT" -name *RootBox-JB-i9100-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEi9100" Bajee@upload.goo.im:~/public_html/RootBox_i9100_jb
 fi
 
 # Build RootBox GT-I9100G
-#. build/envsetup.sh;
-#brunch rootbox_i9100g-userdebug;
+. build/envsetup.sh;
+brunch rootbox_i9100g-userdebug;
 
 # Get Package Name
-#sed -i -e 's/rootbox_//' $OUT/system/build.prop
-#VERSION3=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
-#PACKAGEi9100g=$OUT/$VERSION3.zip
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION3=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEi9100g=$OUT/$VERSION3.zip
 
 # Move the changelog into zip  & upload zip to Goo.im
-#if [ "$RELEASE" == "nightly" ]
-#then
-#    find "$OUT" -name *RootBox-JB-i9100g-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-#    scp "$PACKAGEi9100g" Bajee@upload.goo.im:~/public_html/Nightlies/i9100g
-#    scp "$PACKAGEi9100g" bajee11@exynos.co:~/RB_i9100g_NIGHTLIES
-#else
-#    find "$OUT" -name *RootBox-JB-i9100g-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-#    scp "$PACKAGEi9100g" Bajee@upload.goo.im:~/public_html/RootBox_i9100g_jb
-#fi
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-i9100g-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEi9100g" Bajee@upload.goo.im:~/public_html/Nightlies/i9100g
+else
+    echo "Ignoring i9100g for official builds."
+fi
 
 # Build RootBox GT-I9300
 . build/envsetup.sh;
@@ -141,7 +138,6 @@ if [ "$RELEASE" == "nightly" ]
 then
     find "$OUT" -name *RootBox-JB-i9300-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEi9300" Bajee@upload.goo.im:~/public_html/Nightlies/i9300
-    scp "$PACKAGEi9300" bajee11@exynos.co:~/RB_i9300_NIGHTLIES
 else
     find "$OUT" -name *RootBox-JB-i9300-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEi9300" Bajee@upload.goo.im:~/public_html/RootBox_i9300_jb
