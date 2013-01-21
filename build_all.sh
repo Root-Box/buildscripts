@@ -5,8 +5,16 @@ sdate="$1"
 cdate=`date +"%m_%d_%Y"`
 rdir=`pwd`
 
+# Remove previous build info
+echo "Removing previous build.prop"
+rm out/target/product/d2att/system/build.prop;
+rm out/target/product/n7000/system/build.prop;
+rm out/target/product/i9100/system/build.prop;
+rm out/target/product/i9100g/system/build.prop;
+rm out/target/product/i9300/system/build.prop;
 
 # Build AOKP SGH-I747
+make installclean;
 . build/envsetup.sh;
 brunch aokp_d2att-userdebug;
 
@@ -83,6 +91,19 @@ PACKAGEi9100=$OUT/$VERSION2.zip
 # Upload package to Andro and Goo
 scp "$PACKAGEi9100" bajee11@exynos.co:~/AOKP_i9100_NIGHTLIES
 scp "$PACKAGEi9100" aokp_s2@upload.goo.im:~/public_html/Nightlies/i9100
+
+# Build AOKP N7000
+. build/envsetup.sh;
+brunch aokp_n7000-userdebug;
+
+# Get Package Name
+find "$OUT" -name *aokp_n7000_unofficial*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+VERSION5=`sed -n -e'/ro.aokp.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEn7000=$OUT/$VERSION5.zip
+
+# Upload package to Andro and Goo
+scp "$PACKAGEn7000" bajee11@exynos.co:~/AOKP_n7000_NIGHTLIES
+scp "$PACKAGEn7000" aokp_s2@upload.goo.im:~/public_html/Nightlies/n7000
 
 # Build RootBox GT-I9100G
 . build/envsetup.sh;
