@@ -10,6 +10,7 @@ RELEASE="$1"
 # Remove previous build info
 echo "Removing previous build.prop"
 rm out/target/product/d2att/system/build.prop;
+rm out/target/product/d2tmo/system/build.prop;
 rm out/target/product/i9100/system/build.prop;
 rm out/target/product/i9100g/system/build.prop;
 rm out/target/product/i9300/system/build.prop;
@@ -86,6 +87,24 @@ else
     scp "$rdir"/changelog_"$RB_BUILD".txt Bajee@upload.goo.im:~/public_html/RootBox_Changelogs
 fi
 
+# Build RootBox SGH-T999
+. build/envsetup.sh;
+brunch rootbox_d2tmo-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION5=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEd2tmo=$OUT/$VERSION5.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-d2tmo-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEd2tmo" Bajee@upload.goo.im:~/public_html/Nightlies/d2tmo
+else
+    find "$OUT" -name *RootBox-JB-d2tmo-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEd2tmo" Bajee@upload.goo.im:~/public_html/RootBox_d2tmo_jb
+fi
 
 # Build RootBox GT-I9100
 . build/envsetup.sh;

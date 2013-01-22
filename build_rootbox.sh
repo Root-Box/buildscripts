@@ -19,6 +19,7 @@ txtrst=$(tput sgr0)             # Reset
 DEVICE="$1"
 SYNC="$2"
 THREADS="$3"
+CLEAN="$4"
 
 # get current version
 VERSION=`date +%Y%m%d`
@@ -39,8 +40,14 @@ then
 fi
 
 # setup environment
-echo -e "${bldblu}Cleaning up out folder ${txtrst}"
-make clobber;
+if [ "$CLEAN" == "clean" ]
+then
+   echo -e "${bldblu}Cleaning up out folder ${txtrst}"
+   make clobber;
+else
+  echo -e "${bldblu}Skipping out folder cleanup ${txtrst}"
+fi
+
 
 # setup environment
 echo -e "${bldblu}Setting up build environment ${txtrst}"
