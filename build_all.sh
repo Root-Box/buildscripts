@@ -11,6 +11,7 @@ RELEASE="$1"
 echo "Removing previous build.prop"
 rm out/target/product/d2att/system/build.prop;
 rm out/target/product/d2tmo/system/build.prop;
+rm out/target/product/grouper/system/build.prop;
 rm out/target/product/i9100/system/build.prop;
 rm out/target/product/i9100g/system/build.prop;
 rm out/target/product/i9300/system/build.prop;
@@ -93,8 +94,8 @@ brunch rootbox_d2tmo-userdebug;
 
 # Get Package Name
 sed -i -e 's/rootbox_//' $OUT/system/build.prop
-VERSION5=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
-PACKAGEd2tmo=$OUT/$VERSION5.zip
+VERSION2=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEd2tmo=$OUT/$VERSION2.zip
 
 # Move the changelog into zip  & upload zip to Goo.im
 if [ "$RELEASE" == "nightly" ]
@@ -112,8 +113,8 @@ brunch rootbox_i9100-userdebug;
 
 # Get Package Name
 sed -i -e 's/rootbox_//' $OUT/system/build.prop
-VERSION2=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
-PACKAGEi9100=$OUT/$VERSION2.zip
+VERSION3=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEi9100=$OUT/$VERSION3.zip
 
 # Move the changelog into zip  & upload zip to Goo.im
 if [ "$RELEASE" == "nightly" ]
@@ -131,8 +132,8 @@ brunch rootbox_i9100g-userdebug;
 
 # Get Package Name
 sed -i -e 's/rootbox_//' $OUT/system/build.prop
-VERSION3=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
-PACKAGEi9100g=$OUT/$VERSION3.zip
+VERSION4=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEi9100g=$OUT/$VERSION4.zip
 
 # Move the changelog into zip  & upload zip to Goo.im
 if [ "$RELEASE" == "nightly" ]
@@ -150,8 +151,8 @@ brunch rootbox_i9300-userdebug;
 
 # Get Package Name
 sed -i -e 's/rootbox_//' $OUT/system/build.prop
-VERSION4=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
-PACKAGEi9300=$OUT/$VERSION4.zip
+VERSION5=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEi9300=$OUT/$VERSION5.zip
 
 # Move the changelog into zip  & upload zip to Goo.im
 if [ "$RELEASE" == "nightly" ]
@@ -163,26 +164,25 @@ else
     scp "$PACKAGEi9300" Bajee@upload.goo.im:~/public_html/RootBox_i9300_jb
 fi
 
-# Build RootBox GT-I9100P
-#make clobber;
-#. build/envsetup.sh;
-#brunch rootbox_i9100p-userdebug;
+# Build RootBox Grouper
+. build/envsetup.sh;
+brunch rootbox_grouper-userdebug;
 
 # Get Package Name
-#sed -i -e 's/rootbox_//' $OUT/system/build.prop
-#VERSION3=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
-#PACKAGEi9100p=$OUT/$VERSION3.zip
-#
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION6=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEgrouper=$OUT/$VERSION6.zip
+
 # Move the changelog into zip  & upload zip to Goo.im
-#if [ "$RELEASE" == "nightly" ]
-#then
-#    find "$OUT" -name *RootBox-JB-*${VERSION}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-#    scp "$PACKAGEi9100p" Bajee@upload.goo.im:~/public_html/Nightlies/i9100p
-#    scp "$PACKAGEi9100p" bajee11@exynos.co:~/RB_i9100p_NIGHTLIES
-#else
-#    find "$OUT" -name *RootBox-JB-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-#    scp "$PACKAGEi9100p" Bajee@upload.goo.im:~/public_html/RootBox_i9100p_jb
-#fi
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-grouper-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEgrouper" Bajee@upload.goo.im:~/public_html/Nightlies/grouper
+else
+    find "$OUT" -name *RootBox-JB-grouper-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEgrouper" Bajee@upload.goo.im:~/public_html/RootBox_grouper_jb
+fi
+
 
 # Remove Changelogs
 if [ "$RELEASE" == "nightly" ]
