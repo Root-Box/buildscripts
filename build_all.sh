@@ -12,12 +12,12 @@ echo "Removing previous build.prop"
 rm out/target/product/d2att/system/build.prop;
 rm out/target/product/d2tmo/system/build.prop;
 rm out/target/product/grouper/system/build.prop;
+rm out/target/product/mako/system/build.prop;
 rm out/target/product/i9100/system/build.prop;
 rm out/target/product/i9100g/system/build.prop;
 rm out/target/product/i9300/system/build.prop;
 
 # Build RootBox SGH-I747
-make installclean;
 . build/envsetup.sh;
 brunch rootbox_d2att-userdebug;
 
@@ -89,7 +89,6 @@ else
 fi
 
 # Build RootBox SGH-T999
-. build/envsetup.sh;
 brunch rootbox_d2tmo-userdebug;
 
 # Get Package Name
@@ -108,7 +107,6 @@ else
 fi
 
 # Build RootBox GT-I9100
-. build/envsetup.sh;
 brunch rootbox_i9100-userdebug;
 
 # Get Package Name
@@ -127,7 +125,6 @@ else
 fi
 
 # Build RootBox GT-I9100G
-. build/envsetup.sh;
 brunch rootbox_i9100g-userdebug;
 
 # Get Package Name
@@ -146,7 +143,6 @@ else
 fi
 
 # Build RootBox GT-I9300
-. build/envsetup.sh;
 brunch rootbox_i9300-userdebug;
 
 # Get Package Name
@@ -165,7 +161,6 @@ else
 fi
 
 # Build RootBox Grouper
-. build/envsetup.sh;
 brunch rootbox_grouper-userdebug;
 
 # Get Package Name
@@ -181,6 +176,24 @@ then
 else
     find "$OUT" -name *RootBox-JB-grouper-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEgrouper" Bajee@upload.goo.im:~/public_html/RootBox_grouper_jb
+fi
+
+# Build RootBox Mako (Nexus 4)
+brunch rootbox_mako-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION7=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEmako=$OUT/$VERSION7.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-mako-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEmako" Bajee@upload.goo.im:~/public_html/Nightlies/mako
+else
+    find "$OUT" -name *RootBox-JB-mako-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEmako" Bajee@upload.goo.im:~/public_html/RootBox_mako_jb
 fi
 
 
