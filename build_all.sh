@@ -6,6 +6,7 @@ cdate=`date +"%m_%d_%Y"`
 DATE=`date +"%Y%m%d"`
 rdir=`pwd`
 RELEASE="$1"
+OFFICIAL="$3"
 
 # Remove previous build info
 echo "Removing previous build.prop"
@@ -16,6 +17,14 @@ rm out/target/product/mako/system/build.prop;
 rm out/target/product/i9100/system/build.prop;
 rm out/target/product/i9100g/system/build.prop;
 rm out/target/product/i9300/system/build.prop;
+
+if [ "$RELEASE" == "official" ]
+then
+    echo "Building Official Release";
+    export RB_BUILD="$OFFICIAL"
+else
+    echo "Building Nightly"
+fi
 
 # Build RootBox SGH-I747
 . build/envsetup.sh;
