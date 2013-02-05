@@ -12,6 +12,7 @@ OFFICIAL="$3"
 echo "Removing previous build.prop"
 rm out/target/product/d2att/system/build.prop;
 rm out/target/product/d2tmo/system/build.prop;
+rm out/target/product/d2vzw/system/build.prop;
 rm out/target/product/grouper/system/build.prop;
 rm out/target/product/mako/system/build.prop;
 rm out/target/product/i9100/system/build.prop;
@@ -80,8 +81,10 @@ done
 # Create Version Changelog
 if [ "$RELEASE" == "nightly" ]
 then
-    echo "Not generating version changelog for nightlies"
+    echo "Generating Changelog for Nightly"
+    cp changelog.txt changelog_"$DATE".txt
 else
+    echo "Generating Changelog for Official Release"
     cp changelog.txt changelog_"$RB_BUILD".txt
 fi
 
@@ -91,6 +94,7 @@ if [ "$RELEASE" == "nightly" ]
 then
     find "$OUT" -name *RootBox-JB-d2att-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEd2att" Bajee@upload.goo.im:~/public_html/Nightlies/d2att
+    scp "$rdir"/changelog_"$DATE".txt Bajee@upload.goo.im:~/public_html/Nightlies/Changelogs
 else
     find "$rdir"/out/target/product -name *RootBox-JB-d2att-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEd2att" Bajee@upload.goo.im:~/public_html/RootBox_d2att_jb
@@ -113,6 +117,24 @@ then
 else
     find "$OUT" -name *RootBox-JB-d2tmo-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEd2tmo" Bajee@upload.goo.im:~/public_html/RootBox_d2tmo_jb
+fi
+
+# Build RootBox SGH-I535
+brunch rootbox_d2vzw-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION8=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEd2vzw=$OUT/$VERSION8.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-d2vzw-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEd2vzw" Bajee@upload.goo.im:~/public_html/Nightlies/d2vzw
+else
+    find "$OUT" -name *RootBox-JB-d2vzw-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEd2vzw" Bajee@upload.goo.im:~/public_html/RootBox_d2vzw_jb
 fi
 
 # Build RootBox GT-I9100
