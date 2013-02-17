@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# get current path
-reldir=`dirname $0`
-cd $reldir
-DIR=`pwd`
-
 # Colorize and add text parameters
 red=$(tput setaf 1)             #  red
 grn=$(tput setaf 2)             #  green
@@ -21,14 +16,24 @@ SYNC="$2"
 THREADS="$3"
 CLEAN="$4"
 
-# get current version
+# Build Date/Version
 VERSION=`date +%Y%m%d`
 
 
-# get time of startup
+# Time of build startup
 res1=$(date +%s.%N)
 
 echo -e "${cya}Building ${bldcya}Vanilla RootBox Nightly-$VERSION ${txtrst}";
+echo -e ""
+echo -e ""
+echo -e  ${bldblue}"  ____                    __    ____"                    
+echo -e  " /\  _'\                 /\ \__/\  _'\ "
+echo -e  " \ \ \L\ \    ___     ___\ \ ,_\ \ \L\ \    ___   __  _"
+echo -e  "  \ \ ,  /   / __'\  / __'\ \ \/\ \  _ <   / __ \/\ \/'\ "
+echo -e  "   \ \ \ \ \/\ \L\ \/\ \L\ \ \ \_\ \ \L\ \/\ \L\ \/>  </"
+echo -e  "    \ \_\ \_\ \____/\ \____/\ \_\ \ \____/\ \____//\_/\_\ "
+echo -e  "     \/_/\/ /\/___/  \/___/  \/__/ \/___/  \/___/ \//\/_/ "
+echo -e
 
 # sync with latest sources
 echo -e ""
@@ -59,7 +64,7 @@ echo -e "${bldblu}Lunching your device ${txtrst}"
 lunch "rootbox_$DEVICE-userdebug";
 
 echo -e ""
-echo -e "${bldblu}Starting to build RootBox ${txtrst}"
+echo -e "${bldblu}Starting RootBox build for $DEVICE ${txtrst}"
 
 # start compilation
 brunch "rootbox_$DEVICE-userdebug" -j"$THREADS";
