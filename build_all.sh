@@ -18,6 +18,7 @@ rm out/target/product/mako/system/build.prop;
 rm out/target/product/i9100/system/build.prop;
 rm out/target/product/i9100g/system/build.prop;
 rm out/target/product/i9300/system/build.prop;
+rm out/target/product/maguro/system/build.prop;
 
 if [ "$RELEASE" == "official" ]
 then
@@ -230,6 +231,23 @@ then
 else
     find "$OUT" -name *RootBox-JB-i9300-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEi9300" Bajee@upload.goo.im:~/public_html/RootBox_i9300_jb
+fi
+
+# Build RootBox Maguro
+brunch rootbox_maguro-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION9=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEmaguro=$OUT/$VERSION9.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    echo "No Nightly for Maguro"
+else
+    find "$OUT" -name *RootBox-JB-maguro-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEmaguro" Bajee@upload.goo.im:~/public_html/RootBox_maguro_jb
 fi
 
 # Remove Changelogs

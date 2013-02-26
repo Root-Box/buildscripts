@@ -21,7 +21,7 @@ To build RootBox you must cd to the working directory.
 
 Now you can run the build script:
 
-    ./build-rootbox.sh -device- -sync- -thread- -clean-
+    $ . build_rootbox.sh -device- -sync- -thread- -clean-
 
 
 * device: Choose between the following supported devices: i9100, i9100g, i9300, d2att, d2tmo, mako and grouper.
@@ -30,7 +30,7 @@ Now you can run the build script:
 * clean: Will remove the entire out folder and start a clean build. (Use this at your discretion)
 
 
-ex: ./build-rootbox.sh i9100 sync 12 clean (This will sync latest sources, clean out folder, build RootBox for GT-I9100 with -j12 threads)
+ex: $ . build_rootbox.sh i9100 sync 12 clean (This will sync latest sources, clean out folder, build RootBox for GT-I9100 with -j12 threads)
 
 
 
