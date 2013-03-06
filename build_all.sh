@@ -19,6 +19,7 @@ rm out/target/product/i9100/system/build.prop;
 rm out/target/product/i9100g/system/build.prop;
 rm out/target/product/i9300/system/build.prop;
 rm out/target/product/maguro/system/build.prop;
+rm out/target/product/t0lte/system/build.prop;
 
 if [ "$RELEASE" == "official" ]
 then
@@ -248,6 +249,24 @@ then
 else
     find "$OUT" -name *RootBox-JB-maguro-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEmaguro" Bajee@upload.goo.im:~/public_html/RootBox_maguro_jb
+fi
+
+# Build RootBox GT-N7105
+brunch rootbox_t0lte-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION10=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEt0lte=$OUT/$VERSION10.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-t0lte-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEt0lte" Bajee@upload.goo.im:~/public_html/Nightlies/t0lte
+else
+    find "$OUT" -name *RootBox-JB-t0lte-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEt0lte" Bajee@upload.goo.im:~/public_html/RootBox_t0lte_jb
 fi
 
 # Remove Changelogs
