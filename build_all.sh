@@ -21,6 +21,8 @@ rm out/target/product/i9300/system/build.prop;
 rm out/target/product/maguro/system/build.prop;
 rm out/target/product/toro/system/build.prop;
 rm out/target/product/t0lte/system/build.prop;
+rm out/target/product/i605/system/build.prop;
+rm out/target/product/l900/system/build.prop;
 
 if [ "$RELEASE" == "official" ]
 then
@@ -286,6 +288,42 @@ then
 else
     find "$OUT" -name *RootBox-JB-t0lte-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEt0lte" Bajee@upload.goo.im:~/public_html/RootBox_t0lte_jb
+fi
+
+# Build RootBox SCH-I605
+brunch rootbox_i605-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION12=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEi605=$OUT/$VERSION12.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-i605-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEi605" Bajee@upload.goo.im:~/public_html/Nightlies/i605
+else
+    find "$OUT" -name *RootBox-JB-i605-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEi605" Bajee@upload.goo.im:~/public_html/RootBox_i605_jb
+fi
+
+# Build RootBox SCH-L900
+brunch rootbox_l900-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION13=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEl900=$OUT/$VERSION13.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-l900-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEl900" Bajee@upload.goo.im:~/public_html/Nightlies/l900
+else
+    find "$OUT" -name *RootBox-JB-l900-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEl900" Bajee@upload.goo.im:~/public_html/RootBox_l900_jb
 fi
 
 # Remove Changelogs
