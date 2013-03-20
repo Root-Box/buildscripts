@@ -248,7 +248,8 @@ PACKAGEmaguro=$OUT/$VERSION9.zip
 # Move the changelog into zip  & upload zip to Goo.im
 if [ "$RELEASE" == "nightly" ]
 then
-    echo "No Nightly for Maguro"
+    find "$OUT" -name *RootBox-JB-maguro-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEmaguro" Bajee@upload.goo.im:~/public_html/Nightlies/maguro
 else
     find "$OUT" -name *RootBox-JB-maguro-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEmaguro" Bajee@upload.goo.im:~/public_html/RootBox_maguro_jb
