@@ -128,6 +128,9 @@ else
     scp "$PACKAGEgrouper" Bajee@upload.goo.im:~/public_html/RootBox_grouper_jb
 fi
 
+echo "Cleaning build folder";
+make clean;
+
 # Build RootBox SGH-I747
 brunch rootbox_d2att-userdebug;
 
@@ -165,6 +168,9 @@ else
     scp "$PACKAGEd2tmo" Bajee@upload.goo.im:~/public_html/RootBox_d2tmo_jb
 fi
 
+echo "Cleaning build folder";
+make clean;
+
 # Build RootBox SGH-I535
 brunch rootbox_d2vzw-userdebug;
 
@@ -183,6 +189,9 @@ else
     scp "$PACKAGEd2vzw" Bajee@upload.goo.im:~/public_html/RootBox_d2vzw_jb
 fi
 
+echo "Cleaning build folder";
+make clean;
+
 # Build RootBox Maguro
 brunch rootbox_maguro-userdebug;
 
@@ -200,6 +209,9 @@ else
     find "$OUT" -name *RootBox-JB-maguro-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEmaguro" Bajee@upload.goo.im:~/public_html/RootBox_maguro_jb
 fi
+
+echo "Cleaning build folder";
+make clean;
 
 # Build RootBox Toro
 brunch rootbox_toro-userdebug;
@@ -255,6 +267,9 @@ else
     scp "$PACKAGEi605" Bajee@upload.goo.im:~/public_html/RootBox_i605_jb
 fi
 
+echo "Cleaning build folder";
+make clean;
+
 # Build RootBox SCH-L900
 brunch rootbox_l900-userdebug;
 
@@ -272,6 +287,9 @@ else
     find "$OUT" -name *RootBox-JB-l900-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEl900" Bajee@upload.goo.im:~/public_html/RootBox_l900_jb
 fi
+
+echo "Cleaning build folder";
+make clean;
 
 # Build RootBox GT-I9100
 brunch rootbox_i9100-userdebug;
@@ -309,6 +327,9 @@ else
     scp "$PACKAGEi9100g" Bajee@upload.goo.im:~/public_html/RootBox_i9100g_jb
 fi
 
+echo "Cleaning build folder";
+make clean;
+
 # Build RootBox GT-I9300
 brunch rootbox_i9300-userdebug;
 
@@ -337,8 +358,8 @@ else
     rm "$rdir"/changelog_"$RB_BUILD".txt
 fi
 
+echo "Cleaning build folder";
+make clean;
+
 echo "RootBox packages built, Changelog generated and everything uploaded to server!"
-
-
-exit 0
 
