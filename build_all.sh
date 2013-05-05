@@ -348,6 +348,24 @@ else
     scp "$PACKAGEi9300" Bajee@upload.goo.im:~/public_html/RootBox_i9300_jb
 fi
 
+# Build RootBox GT-N7000
+brunch rootbox_n7000-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION14=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEn7000=$OUT/$VERSION14.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-n7000-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEn7000" Bajee@upload.goo.im:~/public_html/Nightlies/n7000
+else
+    find "$OUT" -name *RootBox-JB-n7000-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEn7000" Bajee@upload.goo.im:~/public_html/RootBox_n7000_jb
+fi
+
 # Remove Changelogs
 if [ "$RELEASE" == "nightly" ]
 then
