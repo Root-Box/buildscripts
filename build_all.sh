@@ -18,9 +18,11 @@ rm out/target/product/mako/system/build.prop;
 rm out/target/product/i9100/system/build.prop;
 rm out/target/product/i9100g/system/build.prop;
 rm out/target/product/i9300/system/build.prop;
+rm out/target/product/n7000/system/build.prop;
 rm out/target/product/maguro/system/build.prop;
 rm out/target/product/toro/system/build.prop;
 rm out/target/product/t0lte/system/build.prop;
+rm out/target/product/t0lteatt/system/build.prop;
 rm out/target/product/i605/system/build.prop;
 rm out/target/product/l900/system/build.prop;
 
@@ -287,6 +289,25 @@ else
     find "$OUT" -name *RootBox-JB-l900-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGEl900" Bajee@upload.goo.im:~/public_html/RootBox_l900_jb
 fi
+
+# Build RootBox SGH-I317
+brunch rootbox_t0lteatt-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION15=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEt0lteatt=$OUT/$VERSION15.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-t0lteatt-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEt0lteatt" Bajee@upload.goo.im:~/public_html/Nightlies/t0lteatt
+else
+    find "$OUT" -name *RootBox-JB-t0lteatt-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEt0lteatt" Bajee@upload.goo.im:~/public_html/RootBox_t0lteatt_jb
+fi
+
 
 echo "Cleaning build folder";
 make clean;
