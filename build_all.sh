@@ -92,7 +92,12 @@ else
     scp "$rdir"/changelog_"$RB_BUILD".txt Bajee@upload.goo.im:~/public_html/RootBox_Changelogs
 fi
 
-# Build RootBox Mako (Nexus 4)
+##########################################################################################
+#                                                                                        #
+#                                   Building Nexus 4                                     #
+#                                                                                        #
+##########################################################################################
+
 . build/envsetup.sh;
 brunch rootbox_mako-userdebug;
 
@@ -111,8 +116,12 @@ else
     scp "$PACKAGEmako" Bajee@upload.goo.im:~/public_html/RootBox_mako_jb
 fi
 
+##########################################################################################
+#                                                                                        #
+#                                   Building Nexus 7                                     #
+#                                                                                        #
+##########################################################################################
 
-# Build RootBox Grouper
 brunch rootbox_grouper-userdebug;
 
 # Get Package Name
@@ -130,10 +139,64 @@ else
     scp "$PACKAGEgrouper" Bajee@upload.goo.im:~/public_html/RootBox_grouper_jb
 fi
 
-echo "Cleaning build folder";
-make clean;
+rm -rf out/target/product/grouper;
 
-# Build RootBox SGH-I747
+##########################################################################################
+#                                                                                        #
+#                                Building Galaxy Nexus                                   #
+#                                                                                        #
+##########################################################################################
+
+brunch rootbox_maguro-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION9=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEmaguro=$OUT/$VERSION9.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-maguro-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEmaguro" Bajee@upload.goo.im:~/public_html/Nightlies/maguro
+else
+    find "$OUT" -name *RootBox-JB-maguro-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEmaguro" Bajee@upload.goo.im:~/public_html/RootBox_maguro_jb
+fi
+
+rm -rf out/target/product/maguro;
+
+##########################################################################################
+#                                                                                        #
+#                                Building Galaxy Nexus                                   #
+#                                                                                        #
+##########################################################################################
+
+brunch rootbox_toro-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION10=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEtoro=$OUT/$VERSION10.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-toro-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEtoro" Bajee@upload.goo.im:~/public_html/Nightlies/toro
+else
+    find "$OUT" -name *RootBox-JB-toro-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEtoro" Bajee@upload.goo.im:~/public_html/RootBox_toro_jb
+fi
+
+rm -rf out/target/product/toro;
+
+##########################################################################################
+#                                                                                        #
+#                              Building Galaxy S3 (AT&T)                                 #
+#                                                                                        #
+##########################################################################################
+
 brunch rootbox_d2att-userdebug;
 
 # Get Package Name
@@ -152,7 +215,14 @@ else
     scp "$PACKAGEd2att" Bajee@upload.goo.im:~/public_html/RootBox_d2att_jb
 fi
 
-# Build RootBox SGH-T999
+rm -rf out/target/product/d2att;
+
+##########################################################################################
+#                                                                                        #
+#                             Building Galaxy S3 (T-Mobile)                              #
+#                                                                                        #
+##########################################################################################
+
 brunch rootbox_d2tmo-userdebug;
 
 # Get Package Name
@@ -170,10 +240,14 @@ else
     scp "$PACKAGEd2tmo" Bajee@upload.goo.im:~/public_html/RootBox_d2tmo_jb
 fi
 
-echo "Cleaning build folder";
-make clean;
+rm -rf out/target/product/d2tmo;
 
-# Build RootBox SGH-I535
+##########################################################################################
+#                                                                                        #
+#                             Building Galaxy S3 (Verizon)                               #
+#                                                                                        #
+##########################################################################################
+
 brunch rootbox_d2vzw-userdebug;
 
 # Get Package Name
@@ -191,49 +265,15 @@ else
     scp "$PACKAGEd2vzw" Bajee@upload.goo.im:~/public_html/RootBox_d2vzw_jb
 fi
 
-echo "Cleaning build folder";
-make clean;
+rm -rf out/target/product/d2vzw;
 
-# Build RootBox Maguro
-brunch rootbox_maguro-userdebug;
+##########################################################################################
+#                                                                                        #
+#                              Building Galaxy Note II                                   #
+#                                     GT-N7105                                           #
+#                                                                                        #
+##########################################################################################
 
-# Get Package Name
-sed -i -e 's/rootbox_//' $OUT/system/build.prop
-VERSION9=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
-PACKAGEmaguro=$OUT/$VERSION9.zip
-
-# Move the changelog into zip  & upload zip to Goo.im
-if [ "$RELEASE" == "nightly" ]
-then
-    find "$OUT" -name *RootBox-JB-maguro-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$PACKAGEmaguro" Bajee@upload.goo.im:~/public_html/Nightlies/maguro
-else
-    find "$OUT" -name *RootBox-JB-maguro-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$PACKAGEmaguro" Bajee@upload.goo.im:~/public_html/RootBox_maguro_jb
-fi
-
-echo "Cleaning build folder";
-make clean;
-
-# Build RootBox Toro
-brunch rootbox_toro-userdebug;
-
-# Get Package Name
-sed -i -e 's/rootbox_//' $OUT/system/build.prop
-VERSION10=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
-PACKAGEtoro=$OUT/$VERSION10.zip
-
-# Move the changelog into zip  & upload zip to Goo.im
-if [ "$RELEASE" == "nightly" ]
-then
-    find "$OUT" -name *RootBox-JB-toro-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$PACKAGEtoro" Bajee@upload.goo.im:~/public_html/Nightlies/toro
-else
-    find "$OUT" -name *RootBox-JB-toro-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$PACKAGEtoro" Bajee@upload.goo.im:~/public_html/RootBox_toro_jb
-fi
-
-# Build RootBox GT-N7105
 brunch rootbox_t0lte-userdebug;
 
 # Get Package Name
@@ -251,7 +291,15 @@ else
     scp "$PACKAGEt0lte" Bajee@upload.goo.im:~/public_html/RootBox_t0lte_jb
 fi
 
-# Build RootBox SCH-I605
+rm -rf out/target/product/t0lte;
+
+##########################################################################################
+#                                                                                        #
+#                              Building Galaxy Note II                                   #
+#                                     SCH-I605                                           #
+#                                                                                        #
+##########################################################################################
+
 brunch rootbox_i605-userdebug;
 
 # Get Package Name
@@ -269,10 +317,15 @@ else
     scp "$PACKAGEi605" Bajee@upload.goo.im:~/public_html/RootBox_i605_jb
 fi
 
-echo "Cleaning build folder";
-make clean;
+rm -rf out/target/product/i605;
 
-# Build RootBox SCH-L900
+##########################################################################################
+#                                                                                        #
+#                              Building Galaxy Note II                                   #
+#                                     SCH-I605                                           #
+#                                                                                        #
+##########################################################################################
+
 brunch rootbox_l900-userdebug;
 
 # Get Package Name
@@ -290,7 +343,15 @@ else
     scp "$PACKAGEl900" Bajee@upload.goo.im:~/public_html/RootBox_l900_jb
 fi
 
-# Build RootBox SGH-I317
+rm -rf out/target/product/l900;
+
+##########################################################################################
+#                                                                                        #
+#                              Building Galaxy Note II                                   #
+#                                     SCH-I317                                           #
+#                                                                                        #
+##########################################################################################
+
 brunch rootbox_t0lteatt-userdebug;
 
 # Get Package Name
@@ -308,11 +369,14 @@ else
     scp "$PACKAGEt0lteatt" Bajee@upload.goo.im:~/public_html/RootBox_t0lteatt_jb
 fi
 
+rm -rf out/target/product/t0lteatt;
 
-echo "Cleaning build folder";
-make clean;
+##########################################################################################
+#                                                                                        #
+#                             Building Galaxy S2 (GT-I9100)                              #
+#                                                                                        #
+##########################################################################################
 
-# Build RootBox GT-I9100
 brunch rootbox_i9100-userdebug;
 
 # Get Package Name
@@ -330,7 +394,39 @@ else
     scp "$PACKAGEi9100" Bajee@upload.goo.im:~/public_html/RootBox_i9100_jb
 fi
 
-# Build RootBox GT-I9100G
+##########################################################################################
+#                                                                                        #
+#                                Building Galaxy Note                                    #
+#                                     GT-N7000                                           #
+#                                                                                        #
+##########################################################################################
+
+brunch rootbox_n7000-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION14=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEn7000=$OUT/$VERSION14.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-n7000-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEn7000" Bajee@upload.goo.im:~/public_html/Nightlies/n7000
+else
+    find "$OUT" -name *RootBox-JB-n7000-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEn7000" Bajee@upload.goo.im:~/public_html/RootBox_n7000_jb
+fi
+
+rm -rf out/target/product/i9100;
+rm -rf out/target/product/n7000;
+
+##########################################################################################
+#                                                                                        #
+#                            Building Galaxy S2 (GT-I9100G)                              #
+#                                                                                        #
+##########################################################################################
+
 brunch rootbox_i9100g-userdebug;
 
 # Get Package Name
@@ -348,10 +444,14 @@ else
     scp "$PACKAGEi9100g" Bajee@upload.goo.im:~/public_html/RootBox_i9100g_jb
 fi
 
-echo "Cleaning build folder";
-make clean;
+rm -rf out/target/product/i9100g;
 
-# Build RootBox GT-I9300
+##########################################################################################
+#                                                                                        #
+#                             Building Galaxy S3 (GT-I9300)                              #
+#                                                                                        #
+##########################################################################################
+
 brunch rootbox_i9300-userdebug;
 
 # Get Package Name
@@ -369,23 +469,7 @@ else
     scp "$PACKAGEi9300" Bajee@upload.goo.im:~/public_html/RootBox_i9300_jb
 fi
 
-# Build RootBox GT-N7000
-brunch rootbox_n7000-userdebug;
-
-# Get Package Name
-sed -i -e 's/rootbox_//' $OUT/system/build.prop
-VERSION14=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
-PACKAGEn7000=$OUT/$VERSION14.zip
-
-# Move the changelog into zip  & upload zip to Goo.im
-if [ "$RELEASE" == "nightly" ]
-then
-    find "$OUT" -name *RootBox-JB-n7000-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$PACKAGEn7000" Bajee@upload.goo.im:~/public_html/Nightlies/n7000
-else
-    find "$OUT" -name *RootBox-JB-n7000-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$PACKAGEn7000" Bajee@upload.goo.im:~/public_html/RootBox_n7000_jb
-fi
+rm -rf out/target/product/i9300;
 
 # Remove Changelogs
 if [ "$RELEASE" == "nightly" ]
