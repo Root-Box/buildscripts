@@ -122,24 +122,24 @@ fi
 #                                                                                        #
 ##########################################################################################
 
-brunch rootbox_grouper-userdebug;
+#brunch rootbox_grouper-userdebug;
 
 # Get Package Name
-sed -i -e 's/rootbox_//' $OUT/system/build.prop
-VERSION2=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
-PACKAGEgrouper=$OUT/$VERSION2.zip
+#sed -i -e 's/rootbox_//' $OUT/system/build.prop
+#VERSION2=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+#PACKAGEgrouper=$OUT/$VERSION2.zip
 
 # Move the changelog into zip  & upload zip to Goo.im
-if [ "$RELEASE" == "nightly" ]
-then
-    find "$OUT" -name *RootBox-JB-grouper-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$PACKAGEgrouper" Bajee@upload.goo.im:~/public_html/Nightlies/grouper
-else
-    find "$OUT" -name *RootBox-JB-grouper-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$PACKAGEgrouper" Bajee@upload.goo.im:~/public_html/RootBox_grouper_jb
-fi
+#if [ "$RELEASE" == "nightly" ]
+#then
+#    find "$OUT" -name *RootBox-JB-grouper-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+#    scp "$PACKAGEgrouper" Bajee@upload.goo.im:~/public_html/Nightlies/grouper
+#else
+#    find "$OUT" -name *RootBox-JB-grouper-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+#    scp "$PACKAGEgrouper" Bajee@upload.goo.im:~/public_html/RootBox_grouper_jb
+#fi
 
-rm -rf out/target/product/grouper;
+#rm -rf out/target/product/grouper;
 
 ##########################################################################################
 #                                                                                        #
