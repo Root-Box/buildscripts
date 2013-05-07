@@ -216,6 +216,8 @@ else
     scp "$PACKAGEd2att" Bajee@upload.goo.im:~/public_html/RootBox_d2att_jb
 fi
 
+rm -rf out/target/product/d2att;
+
 ##########################################################################################
 #                                                                                        #
 #                             Building Galaxy S3 (T-Mobile)                              #
@@ -239,7 +241,6 @@ else
     scp "$PACKAGEd2tmo" Bajee@upload.goo.im:~/public_html/RootBox_d2tmo_jb
 fi
 
-rm -rf out/target/product/d2att;
 rm -rf out/target/product/d2tmo;
 
 ##########################################################################################
@@ -265,6 +266,8 @@ else
     scp "$PACKAGEd2vzw" Bajee@upload.goo.im:~/public_html/RootBox_d2vzw_jb
 fi
 
+rm -rf out/target/product/d2vzw;
+
 ##########################################################################################
 #                                                                                        #
 #                             Building Galaxy S3 (Sprint)                                #
@@ -288,7 +291,6 @@ else
     scp "$PACKAGEd2spr" Bajee@upload.goo.im:~/public_html/RootBox_d2spr_jb
 fi
 
-rm -rf out/target/product/d2vzw;
 rm -rf out/target/product/d2spr;
 
 ##########################################################################################
@@ -315,6 +317,8 @@ else
     scp "$PACKAGEn7100" Bajee@upload.goo.im:~/public_html/RootBox_n7100_jb
 fi
 
+rm -rf out/target/product/n7100;
+
 ##########################################################################################
 #                                                                                        #
 #                              Building Galaxy Note II                                   #
@@ -339,7 +343,6 @@ else
     scp "$PACKAGEt0lte" Bajee@upload.goo.im:~/public_html/RootBox_t0lte_jb
 fi
 
-rm -rf out/target/product/n7100;
 rm -rf out/target/product/t0lte;
 
 ##########################################################################################
@@ -443,6 +446,8 @@ else
     scp "$PACKAGEi9100" Bajee@upload.goo.im:~/public_html/RootBox_i9100_jb
 fi
 
+rm -rf out/target/product/i9100;
+
 ##########################################################################################
 #                                                                                        #
 #                                Building Galaxy Note                                    #
@@ -467,7 +472,6 @@ else
     scp "$PACKAGEn7000" Bajee@upload.goo.im:~/public_html/RootBox_n7000_jb
 fi
 
-rm -rf out/target/product/i9100;
 rm -rf out/target/product/n7000;
 
 ##########################################################################################
