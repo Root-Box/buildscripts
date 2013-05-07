@@ -95,11 +95,36 @@ fi
 
 ##########################################################################################
 #                                                                                        #
-#                                   Building Nexus 4                                     #
+#                             Building Galaxy S2 (GT-I9100)                              #
 #                                                                                        #
 ##########################################################################################
 
 . build/envsetup.sh;
+brunch rootbox_i9100-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION6=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEi9100=$OUT/$VERSION6.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-i9100-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEi9100" Bajee@upload.goo.im:~/public_html/Nightlies/i9100
+else
+    find "$OUT" -name *RootBox-JB-i9100-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEi9100" Bajee@upload.goo.im:~/public_html/RootBox_i9100_jb
+fi
+
+rm -rf out/target/product/i9100;
+
+##########################################################################################
+#                                                                                        #
+#                                   Building Nexus 4                                     #
+#                                                                                        #
+##########################################################################################
+
 brunch rootbox_mako-userdebug;
 
 # Get Package Name
@@ -422,31 +447,6 @@ else
 fi
 
 rm -rf out/target/product/t0lteatt;
-
-##########################################################################################
-#                                                                                        #
-#                             Building Galaxy S2 (GT-I9100)                              #
-#                                                                                        #
-##########################################################################################
-
-brunch rootbox_i9100-userdebug;
-
-# Get Package Name
-sed -i -e 's/rootbox_//' $OUT/system/build.prop
-VERSION6=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
-PACKAGEi9100=$OUT/$VERSION6.zip
-
-# Move the changelog into zip  & upload zip to Goo.im
-if [ "$RELEASE" == "nightly" ]
-then
-    find "$OUT" -name *RootBox-JB-i9100-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$PACKAGEi9100" Bajee@upload.goo.im:~/public_html/Nightlies/i9100
-else
-    find "$OUT" -name *RootBox-JB-i9100-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$PACKAGEi9100" Bajee@upload.goo.im:~/public_html/RootBox_i9100_jb
-fi
-
-rm -rf out/target/product/i9100;
 
 ##########################################################################################
 #                                                                                        #
