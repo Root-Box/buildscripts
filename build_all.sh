@@ -19,6 +19,7 @@ rm out/target/product/i9100/system/build.prop;
 rm out/target/product/i9100g/system/build.prop;
 rm out/target/product/i9300/system/build.prop;
 rm out/target/product/n7000/system/build.prop;
+rm out/target/product/n7100/system/build.prop;
 rm out/target/product/maguro/system/build.prop;
 rm out/target/product/toro/system/build.prop;
 rm out/target/product/t0lte/system/build.prop;
@@ -270,6 +271,30 @@ rm -rf out/target/product/d2vzw;
 ##########################################################################################
 #                                                                                        #
 #                              Building Galaxy Note II                                   #
+#                                     GT-N7100                                           #
+#                                                                                        #
+##########################################################################################
+
+brunch rootbox_n7100-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION16=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEn7100=$OUT/$VERSION16.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-n7100-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEn7100" Bajee@upload.goo.im:~/public_html/Nightlies/n7100
+else
+    find "$OUT" -name *RootBox-JB-n7100-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEn7100" Bajee@upload.goo.im:~/public_html/RootBox_n7100_jb
+fi
+
+##########################################################################################
+#                                                                                        #
+#                              Building Galaxy Note II                                   #
 #                                     GT-N7105                                           #
 #                                                                                        #
 ##########################################################################################
@@ -291,6 +316,7 @@ else
     scp "$PACKAGEt0lte" Bajee@upload.goo.im:~/public_html/RootBox_t0lte_jb
 fi
 
+rm -rf out/target/product/n7100;
 rm -rf out/target/product/t0lte;
 
 ##########################################################################################
