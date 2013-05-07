@@ -216,8 +216,6 @@ else
     scp "$PACKAGEd2att" Bajee@upload.goo.im:~/public_html/RootBox_d2att_jb
 fi
 
-rm -rf out/target/product/d2att;
-
 ##########################################################################################
 #                                                                                        #
 #                             Building Galaxy S3 (T-Mobile)                              #
@@ -241,6 +239,7 @@ else
     scp "$PACKAGEd2tmo" Bajee@upload.goo.im:~/public_html/RootBox_d2tmo_jb
 fi
 
+rm -rf out/target/product/d2att;
 rm -rf out/target/product/d2tmo;
 
 ##########################################################################################
@@ -266,7 +265,31 @@ else
     scp "$PACKAGEd2vzw" Bajee@upload.goo.im:~/public_html/RootBox_d2vzw_jb
 fi
 
+##########################################################################################
+#                                                                                        #
+#                             Building Galaxy S3 (Sprint)                                #
+#                                                                                        #
+##########################################################################################
+
+brunch rootbox_d2spr-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION17=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEd2spr=$OUT/$VERSION17.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-d2spr-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEd2spr" Bajee@upload.goo.im:~/public_html/Nightlies/d2spr
+else
+    find "$OUT" -name *RootBox-JB-d2spr-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEd2spr" Bajee@upload.goo.im:~/public_html/RootBox_d2spr_jb
+fi
+
 rm -rf out/target/product/d2vzw;
+rm -rf out/target/product/d2spr;
 
 ##########################################################################################
 #                                                                                        #
