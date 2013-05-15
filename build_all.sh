@@ -534,8 +534,5 @@ else
     rm "$rdir"/changelog_"$RB_BUILD".txt
 fi
 
-echo "Cleaning build folder";
-make clean;
-
 echo "RootBox packages built, Changelog generated and everything uploaded to server!"
 
