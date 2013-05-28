@@ -26,6 +26,8 @@ rm out/target/product/t0lte/system/build.prop;
 rm out/target/product/t0lteatt/system/build.prop;
 rm out/target/product/i605/system/build.prop;
 rm out/target/product/l900/system/build.prop;
+rm out/target/product/find5/system/build.prop;
+rm out/target/product/manta/system/build.prop;
 
 if [ "$RELEASE" == "official" ]
 then
@@ -166,6 +168,31 @@ else
 fi
 
 rm -rf out/target/product/grouper;
+
+##########################################################################################
+#                                                                                        #
+#                                  Building Nexus 10                                     #
+#                                                                                        #
+##########################################################################################
+
+brunch rootbox_manta-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION18=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEmanta=$OUT/$VERSION18.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-manta-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEmanta" Bajee@upload.goo.im:~/public_html/Nightlies/manta
+else
+    find "$OUT" -name *RootBox-JB-manta-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEmanta" Bajee@upload.goo.im:~/public_html/RootBox_manta_jb
+fi
+
+rm -rf out/target/product/manta;
 
 ##########################################################################################
 #                                                                                        #
@@ -523,6 +550,31 @@ else
 fi
 
 rm -rf out/target/product/i9300;
+
+##########################################################################################
+#                                                                                        #
+#                                 Building Oppo Find 5                                   #
+#                                                                                        #
+##########################################################################################
+
+brunch rootbox_find5-userdebug;
+
+# Get Package Name
+sed -i -e 's/rootbox_//' $OUT/system/build.prop
+VERSION19=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
+PACKAGEfind5=$OUT/$VERSION19.zip
+
+# Move the changelog into zip  & upload zip to Goo.im
+if [ "$RELEASE" == "nightly" ]
+then
+    find "$OUT" -name *RootBox-JB-find5-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEfind5" Bajee@upload.goo.im:~/public_html/Nightlies/find5
+else
+    find "$OUT" -name *RootBox-JB-find5-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
+    scp "$PACKAGEfind5" Bajee@upload.goo.im:~/public_html/RootBox_find5_jb
+fi
+
+rm -rf out/target/product/find5;
 
 # Remove Changelogs
 if [ "$RELEASE" == "nightly" ]
