@@ -81,11 +81,9 @@ if [ "$RELEASE" == "nightly" ]
 then
     echo "Generating and Uploading Changelog for Nightly"
     cp changelog.txt changelog_"$DATE".txt
-    scp "$rdir"/changelog_"$DATE".txt Bajee@upload.goo.im:~/public_html/Nightlies/Changelogs
 else
     echo "Generating and Uploading Changelog for Official Release"
     cp changelog.txt changelog_"$RB_BUILD".txt
-    scp "$rdir"/changelog_"$RB_BUILD".txt Bajee@upload.goo.im:~/public_html/RootBox_Changelogs
 fi
 
 # Build Devices on Server 2
