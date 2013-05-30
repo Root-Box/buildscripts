@@ -8,20 +8,6 @@ rdir=`pwd`
 RELEASE="$1"
 OFFICIAL="$3"
 
-# Remove previous build info
-echo "Removing previous build.prop"
-rm out/target/product/i9100/system/build.prop;
-rm out/target/product/i9100g/system/build.prop;
-rm out/target/product/i9300/system/build.prop;
-rm out/target/product/n7000/system/build.prop;
-rm out/target/product/n7100/system/build.prop;
-rm out/target/product/t0lte/system/build.prop;
-rm out/target/product/t0lteatt/system/build.prop;
-rm out/target/product/i605/system/build.prop;
-rm out/target/product/l900/system/build.prop;
-rm out/target/product/find5/system/build.prop;
-
-
 if [ "$RELEASE" == "official" ]
 then
     echo "Building Official Release";
@@ -75,6 +61,20 @@ do
         echo "" >> "$rdir"/changelog.txt
     fi
 done
+
+# Create Version Changelog
+if [ "$RELEASE" == "nightly" ]
+then
+    echo "Generating and Uploading Changelog for Nightly"
+    cp changelog.txt changelog_"$DATE".txt
+    scp "$rdir"/changelog_"$DATE".txt Bajee@upload.goo.im:~/public_html/Nightlies/Changelogs
+    ncftpput -f login.cfg /Nightlies/Changelogs "$rdir"/changelog_"$DATE"
+else
+    echo "Generating and Uploading Changelog for Official Release"
+    cp changelog.txt changelog_"$RB_BUILD".txt
+    scp "$rdir"/changelog_"$RB_BUILD".txt Bajee@upload.goo.im:~/public_html/RootBox_Changelogs
+    ncftpput -f login.cfg /Changelogs "$rdir"/changelog_"$RB_BUILD".txt
+fi
 
 # Create Version Changelog
 if [ "$RELEASE" == "nightly" ]

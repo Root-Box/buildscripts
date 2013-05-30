@@ -14,6 +14,9 @@ else
     echo "Building Nightly"
 fi
 
+echo "Removing previous build.prop"
+rm out/target/product/mako/"$DEVICE"/build.prop;
+
 # setup environment
 echo -e "${bldblu}Setting up build environment ${txtrst}"
 . build/envsetup.sh
@@ -30,14 +33,21 @@ sed -i -e 's/rootbox_//' $OUT/system/build.prop
 VERSION=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
 PACKAGE=$OUT/$VERSION.zip
 
-# Move the changelog into zip  & upload zip to Goo.im
+# Export some stuff for the basket script
+export DEVICE="$DEVICE"
+export PACKAGE="$PACKAGE"
+export VERSION="$VERSION"
+
+# Move the changelog into zip  & upload zip to Goo.im & Basketbuild.com
 if [ "$RELEASE" == "nightly" ]
 then
     find "$OUT" -name *RootBox-JB-"$DEVICE"-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGE" Bajee@upload.goo.im:~/public_html/Nightlies/"$DEVICE"
+. basket_upload.sh "$RELEASE"
 else
     find "$OUT" -name *RootBox-JB-"$DEVICE"-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGE" Bajee@upload.goo.im:~/public_html/RootBox_"$DEVICE"_jb
+. basket_upload.sh "$RELEASE"
 fi
 
 rm -rf out/target/product/"$DEVICE";

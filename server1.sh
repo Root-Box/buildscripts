@@ -8,19 +8,6 @@ rdir=`pwd`
 RELEASE="$1"
 OFFICIAL="$3"
 
-# Remove previous build info
-echo "Removing previous build.prop"
-rm out/target/product/mako/system/build.prop;
-rm out/target/product/maguro/system/build.prop;
-rm out/target/product/toro/system/build.prop;
-rm out/target/product/grouper/system/build.prop;
-rm out/target/product/manta/system/build.prop;
-rm out/target/product/d2att/system/build.prop;
-rm out/target/product/d2tmo/system/build.prop;
-rm out/target/product/d2vzw/system/build.prop;
-rm out/target/product/d2spr/system/build.prop;
-
-
 if [ "$RELEASE" == "official" ]
 then
     echo "Building Official Release";
@@ -74,18 +61,6 @@ do
         echo "" >> "$rdir"/changelog.txt
     fi
 done
-
-# Create Version Changelog
-if [ "$RELEASE" == "nightly" ]
-then
-    echo "Generating and Uploading Changelog for Nightly"
-    cp changelog.txt changelog_"$DATE".txt
-    scp "$rdir"/changelog_"$DATE".txt Bajee@upload.goo.im:~/public_html/Nightlies/Changelogs
-else
-    echo "Generating and Uploading Changelog for Official Release"
-    cp changelog.txt changelog_"$RB_BUILD".txt
-    scp "$rdir"/changelog_"$RB_BUILD".txt Bajee@upload.goo.im:~/public_html/RootBox_Changelogs
-fi
 
 # Build Devices on Server 1
 
