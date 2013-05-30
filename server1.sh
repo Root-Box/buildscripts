@@ -62,6 +62,16 @@ do
     fi
 done
 
+# Create Version Changelog
+if [ "$RELEASE" == "nightly" ]
+then
+    echo "Generating and Uploading Changelog for Nightly"
+    cp changelog.txt changelog_"$DATE".txt
+else
+    echo "Generating and Uploading Changelog for Official Release"
+    cp changelog.txt changelog_"$RB_BUILD".txt
+fi
+
 # Build Devices on Server 1
 
 . build_release.sh mako "$RELEASE" "$OFFICIAL"
