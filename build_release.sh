@@ -15,7 +15,7 @@ else
 fi
 
 echo "Removing previous build.prop"
-rm out/target/product/mako/"$DEVICE"/build.prop;
+rm out/target/product/"$DEVICE"/system/build.prop;
 
 # setup environment
 echo -e "${bldblu}Setting up build environment ${txtrst}"
