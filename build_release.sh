@@ -50,4 +50,12 @@ else
 . basket_upload.sh "$RELEASE"
 fi
 
-rm -rf out/target/product/"$DEVICE";
+if [ "$DEVICE" == "mako" ]
+then
+    echo "Not removing Mako"
+else
+    rm -rf out/target/product/"$DEVICE";
+fi
+
+
+
