@@ -80,24 +80,6 @@ fi
 
 . build_release.sh i9100 "$RELEASE" "$OFFICIAL"
 
-. build_release.sh n7000 "$RELEASE" "$OFFICIAL"
-
-. build_release.sh i9100g "$RELEASE" "$OFFICIAL"
-
-. build_release.sh i9300 "$RELEASE" "$OFFICIAL"
-
-. build_release.sh n7100 "$RELEASE" "$OFFICIAL"
-
-. build_release.sh t0lte "$RELEASE" "$OFFICIAL"
-
-. build_release.sh t0lteatt "$RELEASE" "$OFFICIAL"
-
-. build_release.sh i605 "$RELEASE" "$OFFICIAL"
-
-. build_release.sh l900 "$RELEASE" "$OFFICIAL"
-
-. build_release.sh find5 "$RELEASE" "$OFFICIAL"
-
 # Remove Changelogs
 if [ "$RELEASE" == "nightly" ]
 then
