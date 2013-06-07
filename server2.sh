@@ -14,6 +14,7 @@ then
     export RB_BUILD="$OFFICIAL"
 else
     echo "Building Nightly"
+    export RB_NIGHTLY="$DATE"
 fi
 
 echo "Generating Changelog"
@@ -64,7 +65,25 @@ done
 
 # Build Devices on Server 2
 
-. build_release.sh i9100 "$RELEASE" "$OFFICIAL"
+#. build_release2.sh i9100 "$RELEASE" "$OFFICIAL"
+
+. build_release2.sh n7000 "$RELEASE" "$OFFICIAL"
+
+. build_release2.sh i9100g "$RELEASE" "$OFFICIAL"
+
+. build_release2.sh i9300 "$RELEASE" "$OFFICIAL"
+
+. build_release2.sh n7100 "$RELEASE" "$OFFICIAL"
+
+. build_release2.sh t0lte "$RELEASE" "$OFFICIAL"
+
+. build_release2.sh t0lteatt "$RELEASE" "$OFFICIAL"
+
+. build_release2.sh i605 "$RELEASE" "$OFFICIAL"
+
+. build_release2.sh l900 "$RELEASE" "$OFFICIAL"
+
+. build_release2.sh find5 "$RELEASE" "$OFFICIAL"
 
 # Remove Changelogs
 if [ "$RELEASE" == "nightly" ]

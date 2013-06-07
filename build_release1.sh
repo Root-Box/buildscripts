@@ -12,6 +12,7 @@ then
     export RB_BUILD="$OFFICIAL"
 else
     echo "Building Nightly"
+    export RB_NIGHTLY="$DATE"
 fi
 
 echo "Removing previous build.prop"

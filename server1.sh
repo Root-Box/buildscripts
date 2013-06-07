@@ -14,6 +14,7 @@ then
     export RB_BUILD="$OFFICIAL"
 else
     echo "Building Nightly"
+    export RB_NIGHTLY="$DATE"
 fi
 
 echo "Generating Changelog"
@@ -78,41 +79,25 @@ fi
 
 # Build Devices on Server 1
 
-. build_release.sh mako "$RELEASE" "$OFFICIAL"
+. build_release1.sh mako "$RELEASE" "$OFFICIAL"
 
-. build_release.sh grouper "$RELEASE" "$OFFICIAL"
+. build_release1.sh grouper "$RELEASE" "$OFFICIAL"
 
-. build_release.sh manta "$RELEASE" "$OFFICIAL"
+. build_release1.sh manta "$RELEASE" "$OFFICIAL"
 
-. build_release.sh maguro "$RELEASE" "$OFFICIAL"
+. build_release1.sh maguro "$RELEASE" "$OFFICIAL"
 
-. build_release.sh toro "$RELEASE" "$OFFICIAL"
+. build_release1.sh toro "$RELEASE" "$OFFICIAL"
 
-. build_release.sh d2att "$RELEASE" "$OFFICIAL"
+. build_release1.sh d2att "$RELEASE" "$OFFICIAL"
 
-. build_release.sh d2tmo "$RELEASE" "$OFFICIAL"
+. build_release1.sh d2tmo "$RELEASE" "$OFFICIAL"
 
-. build_release.sh d2vzw "$RELEASE" "$OFFICIAL"
+. build_release1.sh d2vzw "$RELEASE" "$OFFICIAL"
 
-. build_release.sh d2spr "$RELEASE" "$OFFICIAL"
+. build_release1.sh d2spr "$RELEASE" "$OFFICIAL"
 
-. build_release.sh n7000 "$RELEASE" "$OFFICIAL"
-
-. build_release.sh i9100g "$RELEASE" "$OFFICIAL"
-
-. build_release.sh i9300 "$RELEASE" "$OFFICIAL"
-
-. build_release.sh n7100 "$RELEASE" "$OFFICIAL"
-
-. build_release.sh t0lte "$RELEASE" "$OFFICIAL"
-
-. build_release.sh t0lteatt "$RELEASE" "$OFFICIAL"
-
-. build_release.sh i605 "$RELEASE" "$OFFICIAL"
-
-. build_release.sh l900 "$RELEASE" "$OFFICIAL"
-
-. build_release.sh find5 "$RELEASE" "$OFFICIAL"
+. build_release1.sh d2usc "$RELEASE" "$OFFICIAL"
 
 # Remove Changelogs
 if [ "$RELEASE" == "nightly" ]
