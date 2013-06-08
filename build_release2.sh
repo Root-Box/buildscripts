@@ -5,6 +5,7 @@ rdir=`pwd`
 DEVICE="$1"
 RELEASE="$2"
 OFFICIAL="$3"
+OUT=out/target/product/"$DEVICE"
 
 if [ "$RELEASE" == "official" ]
 then
@@ -34,24 +35,19 @@ sed -i -e 's/rootbox_//' $OUT/system/build.prop
 VERSION=`sed -n -e'/ro.rootbox.version/s/^.*=//p' $OUT/system/build.prop`
 PACKAGE=$OUT/$VERSION.zip
 
-# Export some stuff for the basket script
-export DEVICE="$DEVICE"
-export PACKAGE="$PACKAGE"
-export VERSION="$VERSION"
-
 # Move the changelog into zip  & upload zip to Goo.im & Basketbuild.com
 if [ "$RELEASE" == "nightly" ]
 then
     find "$OUT" -name *RootBox-JB-"$DEVICE"-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGE" Bajee@upload.goo.im:~/public_html/Nightlies/"$DEVICE"
-    ncftpput -f login.cfg /Nightlies/$DEVICE $PACKAGE
+    ncftpput -f login.cfg /Nightlies/"$DEVICE" "$PACKAGE"
 else
     find "$OUT" -name *RootBox-JB-"$DEVICE"-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGE" Bajee@upload.goo.im:~/public_html/RootBox_"$DEVICE"_jb
-    ncftpput -f login.cfg /$DEVICE $PACKAGE
+    ncftpput -f login.cfg /"$DEVICE" "$PACKAGE"
 fi
 
-if [ "$DEVICE" == "mako" ]
+if [ "$DEVICE" == "i9100" ]
 then
     echo "Not removing Mako"
 else

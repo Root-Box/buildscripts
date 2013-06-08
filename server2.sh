@@ -67,7 +67,7 @@ done
 
 #. build_release2.sh i9100 "$RELEASE" "$OFFICIAL"
 
-. build_release2.sh n7000 "$RELEASE" "$OFFICIAL"
+#. build_release2.sh n7000 "$RELEASE" "$OFFICIAL"
 
 . build_release2.sh i9100g "$RELEASE" "$OFFICIAL"
 
