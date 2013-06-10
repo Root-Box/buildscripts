@@ -89,10 +89,8 @@ done
 if [ "$RELEASE" == "nightly" ]
 then
     rm "$rdir"/changelog.txt
-    rm "$rdir"/changelog_"$DATE".txt
 else
     rm "$rdir"/changelog.txt
-    rm "$rdir"/changelog_"$RB_BUILD".txt
 fi
 
 echo "RootBox packages built, Changelog generated and everything uploaded to server!"
