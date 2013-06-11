@@ -47,12 +47,7 @@ else
     ncftpput -f login.cfg /"$DEVICE" "$PACKAGE"
 fi
 
-if [ "$DEVICE" == "i9100" ]
-then
-    echo "Not removing Mako"
-else
-    rm -rf out/target/product/"$DEVICE";
-fi
+rm -rf out/target/product/"$DEVICE";
 
 
 
