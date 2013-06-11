@@ -47,6 +47,7 @@ else
     ncftpput -f login.cfg /"$DEVICE" "$PACKAGE"
 fi
 
+rm -rf rootbox_"$DEVICE".zip;
 rm -rf out/target/product/"$DEVICE";
 
 
