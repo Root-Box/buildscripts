@@ -26,7 +26,7 @@ echo -e ""
 echo -e "${bldblu}Starting RootBox build for $DEVICE ${txtrst}"
 
 # start compilation
-brunch "$DEVICE";
+brunch "$DEVICE" -j12;
 echo -e ""
 
 # Get Package Name
