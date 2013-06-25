@@ -99,7 +99,15 @@ fi
 
 . build_release1.sh d2usc "$RELEASE" "$OFFICIAL"
 
+. build_release1.sh jflteatt "$RELEASE" "$OFFICIAL"
+
 . build_release1.sh jfltecan "$RELEASE" "$OFFICIAL"
+
+. build_release1.sh jfltespr "$RELEASE" "$OFFICIAL"
+
+. build_release1.sh jfltetmo "$RELEASE" "$OFFICIAL"
+
+. build_release1.sh jfltevzw "$RELEASE" "$OFFICIAL"
 
 # Remove Changelogs
 if [ "$RELEASE" == "nightly" ]
