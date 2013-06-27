@@ -44,7 +44,7 @@ then
 else
     find "$OUT" -name *RootBox-JB-"$DEVICE"-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
     scp "$PACKAGE" Bajee@upload.goo.im:~/public_html/RootBox_"$DEVICE"_jb
-    ncftpput -f login.cfg /"$DEVICE" "$PACKAGE"
+    ncftpput -f login.cfg /Stable/"$DEVICE" "$PACKAGE"
 fi
 
 rm -rf rootbox_"$DEVICE".zip;
