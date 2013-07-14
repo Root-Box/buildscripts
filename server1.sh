@@ -109,6 +109,8 @@ fi
 
 . build_release1.sh jfltevzw "$RELEASE" "$OFFICIAL"
 
+. build_release1.sh jfltexx "$RELEASE" "$OFFICIAL"
+
 # Remove Changelogs
 if [ "$RELEASE" == "nightly" ]
 then
