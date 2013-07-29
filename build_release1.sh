@@ -43,12 +43,12 @@ export VERSION="$VERSION"
 if [ "$RELEASE" == "nightly" ]
 then
     find "$OUT" -name *RootBox-JB-"$DEVICE"-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$PACKAGE" Bajee@upload.goo.im:~/public_html/Nightlies/"$DEVICE"
 . basket_upload.sh "$RELEASE"
+    scp "$PACKAGE" Bajee@upload.goo.im:~/public_html/Nightlies/"$DEVICE"
 else
     find "$OUT" -name *RootBox-JB-"$DEVICE"-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$PACKAGE" Bajee@upload.goo.im:~/public_html/RootBox_"$DEVICE"_jb
 . basket_upload.sh "$RELEASE"
+    scp "$PACKAGE" Bajee@upload.goo.im:~/public_html/RootBox_"$DEVICE"_jb
 fi
 
 if [ "$DEVICE" == "mako" ]

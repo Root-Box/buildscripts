@@ -39,12 +39,12 @@ PACKAGE=$OUT/$VERSION.zip
 if [ "$RELEASE" == "nightly" ]
 then
     find "$OUT" -name *RootBox-JB-"$DEVICE"-Nightly-*${DATE}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$PACKAGE" Bajee@upload.goo.im:~/public_html/Nightlies/"$DEVICE"
     ncftpput -f login.cfg /Nightlies/"$DEVICE" "$PACKAGE"
+    scp "$PACKAGE" Bajee@upload.goo.im:~/public_html/Nightlies/"$DEVICE"
 else
     find "$OUT" -name *RootBox-JB-"$DEVICE"-*${RB_BUILD}*.zip -exec zip -j {} "$rdir"/changelog.txt \;
-    scp "$PACKAGE" Bajee@upload.goo.im:~/public_html/RootBox_"$DEVICE"_jb
     ncftpput -f login.cfg /Stable/"$DEVICE" "$PACKAGE"
+    scp "$PACKAGE" Bajee@upload.goo.im:~/public_html/RootBox_"$DEVICE"_jb
 fi
 
 rm -rf rootbox_"$DEVICE".zip;
